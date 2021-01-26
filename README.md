@@ -1,4 +1,5 @@
-# lottery
+# lottery I
+- 抽奖样式为滚动抽奖
 # 端口8089
 # router
 # 注意事项
