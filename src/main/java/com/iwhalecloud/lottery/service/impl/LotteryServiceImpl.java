@@ -175,14 +175,13 @@ public class LotteryServiceImpl implements LotteryService {
 		staff.setState(0);
 		//打乱顺序
 		List<Staff> staffList = staffMapper.select(staff);
-		if (staffList.size() < 10&&staffList.size()>0) {
+		if (staffList.size() == 2) {
 			//让滚动看起来逼真一点
-			for (int i = 0; i < 3; i++) {
-				Collections.shuffle(staffList);
-				staffList.addAll(staffList);
-			}
+			Collections.shuffle(staffList);
+			staffList.addAll(staffList);
+			Collections.shuffle(staffList);
 		}
-		if (staffList.size()>0){
+		if (staffList.size() > 0) {
 			return Result.getSuccess(staffList);
 		}
 		return Result.getFalse();
@@ -247,33 +246,33 @@ public class LotteryServiceImpl implements LotteryService {
 	}
 
 	@Override
-	public Map<String ,Object> downloadAward(Integer lotteryId) {
-		Prize prize=new Prize();
+	public Map<String, Object> downloadAward(Integer lotteryId) {
+		Prize prize = new Prize();
 		prize.setLotteryId(lotteryId);
-		List<Prize> prizeList=prizeMapper.select(prize);
-		List<StaffVO> staffVOList=new ArrayList<>();
+		List<Prize> prizeList = prizeMapper.select(prize);
+		List<StaffVO> staffVOList = new ArrayList<>();
 		for (Prize prize1 : prizeList) {
-			String staffName=prize1.getStaffName();
-			String staffs[]=staffName.split(" , ");
+			String staffName = prize1.getStaffName();
+			String staffs[] = staffName.split(" , ");
 			for (String staff : staffs) {
-				StaffVO staffVO=new StaffVO();
+				StaffVO staffVO = new StaffVO();
 				staffVO.setPrizeName(prize1.getPrizeName());
 				staffVO.setPrizeLevel(prize1.getPrizeLevel());
-				int index= staff.indexOf(" ");
-				staffVO.setStaffCode(staff.substring(0,index));
+				int index = staff.indexOf(" ");
+				staffVO.setStaffCode(staff.substring(0, index));
 				staffVO.setStaffName(staff.substring(index));
 				staffVOList.add(staffVO);
 			}
 		}
-		Map<String ,Object> map=new HashMap();
-		map.put("prizeList",prizeList);
+		Map<String, Object> map = new HashMap();
+		map.put("prizeList", prizeList);
 		map.put("staffVOList", staffVOList);
 		return map;
 	}
 
 	@Override
 	public Lottery getPrizeByLotteryId(Integer lotteryId) {
-		Lottery lottery=lotteryMapper.selectByPrimaryKey(lotteryId);
+		Lottery lottery = lotteryMapper.selectByPrimaryKey(lotteryId);
 		return lottery;
 	}
 
