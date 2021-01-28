@@ -54,7 +54,9 @@ new Vue({
         isAwardOn: true,
         awardText: '开启',
         audio: new Audio("resources/bgmShorter.mp3"),
-        allowClick:true,
+        synth: window.speechSynthesis,
+        msg: new SpeechSynthesisUtterance(),
+        allowClick: true,
         //太大一堆data了，一人加点，导致现在不知道那些有用哪些没用
     },
 
@@ -450,7 +452,13 @@ new Vue({
         //机器朗读（声音有点像
         prizeRead: function (text) {
             if (this.isAwardOn) {
-                new Audio("http://tts.baidu.com/text2audio?lan=zh&ie=UTF-8&text=" + encodeURI(text)).play();
+                // new Audio("http://tts.baidu.com/text2audio?lan=zh&ie=UTF-8&text=" + encodeURI(text)).play();
+                this.msg.text = text;     // 文字内容: 小朋友，你是否有很多问号
+                this.msg.lang = "zh-CN";  // 使用的语言:中文
+                this.msg.volume = 2;      // 声音音量：1
+                this.msg.rate = 1;        // 语速：1
+                this.msg.pitch = 1;       // 音高：1
+                this.synth.speak(this.msg);    // 播放
             }
         },
 
