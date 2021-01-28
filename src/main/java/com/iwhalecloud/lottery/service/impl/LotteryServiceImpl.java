@@ -13,7 +13,6 @@ import com.iwhalecloud.lottery.params.req.LotteryReq;
 import com.iwhalecloud.lottery.params.vo.*;
 import com.iwhalecloud.lottery.service.LotteryService;
 import com.iwhalecloud.lottery.utils.MD5Util;
-import com.sun.org.apache.bcel.internal.generic.LLOAD;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

@@ -133,10 +133,10 @@
                     width="30%"
             >
                 <p>所有员工已中奖，是否刷新员工数据继续抽奖？</p>
-                <span slot="footer" class="dialog-footer">
-                <el-button @click="staffEnd = false">否</el-button>
-                <el-button type="primary" @click="updateStaff">是</el-button>
-            </span>
+                <p style="color: #2354ff;cursor: pointer; float: right">
+                    <span @click="updateStaff" >是</span>
+                    <span @click="staffEnd = false" >否</span>
+                </p>
             </el-dialog>
         </div>
             <el-dialog

@@ -18,8 +18,8 @@ new Vue({
         staffNameList3: [],
         staffAwardName: [],
         staffAwardCode: [],
-        mergeVisible:false,
-        rollType:'单字跳动',
+        mergeVisible: false,
+        rollType: '单字跳动',
         size: 0,
         sizeCount: 0,
         staffEnd: false,
@@ -33,8 +33,8 @@ new Vue({
         prizeList: [],
         lotteryName: '',
         prizeId: '',
-        prizeName:'',
-        prizeLevel:'',
+        prizeName: '',
+        prizeLevel: '',
         autoplay: false,
         staffList: [{staffId: '0000', staffCode: "0000000000", staffName: "好运来"}],
         speed: 250,
@@ -49,10 +49,10 @@ new Vue({
             prizeId: 0,
             staffName: '',
         },
-        bgmText:'开启',
-        isBgmOn:true,
-        isAwardOn:true,
-        awardText:'开启',
+        bgmText: '开启',
+        isBgmOn: true,
+        isAwardOn: true,
+        awardText: '开启',
         audio: new Audio("resources/bgmShorter.mp3"),
         //太大一堆data了，一人加点，导致现在不知道那些有用哪些没用
     },
@@ -170,51 +170,32 @@ new Vue({
                     //100ms改变一次人员信息
                     that.rollStyle2 = setInterval(function () {
                         //刷新
-                        if (roll1) {
-                            that.staffName1 = that.staffNameList1[that.sizeCount - 1];
-                            that.staffCode1 = that.staffCodeList1[that.sizeCount - 1];
+                        that.staffName1 = that.staffNameList1[that.sizeCount - 1];
+                        that.staffCode1 = that.staffCodeList1[that.sizeCount - 1];
+                        //空白用3000表示，看起整齐
+                        if (that.staffNameList2[that.sizeCount - 1] == ' ') {
+                            that.staffName2 = '\u3000'
+                        } else {
+                            that.staffName2 = that.staffNameList2[that.sizeCount - 1];
                         }
-                        if (roll2) {
-                            //空白用3000表示，看起整齐
-                            if (that.staffNameList2[that.sizeCount - 1] == ' ') {
-                                that.staffName2 = '\u3000'
-                            } else {
-                                that.staffName2 = that.staffNameList2[that.sizeCount - 1];
-                            }
-                        }
-                        if (roll3) {
-                            that.staffCode3 = that.staffCodeList3[that.sizeCount - 1];
-                            that.staffName3 = that.staffNameList3[that.sizeCount - 1];
-                        }
+                        that.staffCode3 = that.staffCodeList3[that.sizeCount - 1];
+                        that.staffName3 = that.staffNameList3[that.sizeCount - 1];
                         that.sizeCount = that.sizeCount - 1;
                         if (that.sizeCount == 0) {
                             that.sizeCount = that.size;
                         }
-                        //时间过半锁定第一个字
-                        if (count > 50) {
-                            roll1 = false;
+                        if (count > 99) {
+                            roll3 = false;
                             that.staffName1 = that.staffAwardName[0];
                             that.staffCode1 = that.staffAwardCode[0];
-                        }
-                        //锁定第二个字
-                        if (count > 75) {
-                            roll2 = false;
                             that.staffName2 = that.staffAwardName[1];
                             that.staffCode2 = that.staffAwardCode[1];
                             staffName2Backup = that.staffAwardName[1];
-                        }
-                        //第二个字防止格式爆炸
-                        if (that.staffName2 === ' ') {
-                            that.staffName2 = '\u3000'
-                        }
-                        //锁定第三个字
-                        if (count > 90) {
-                            roll3 = false;
+                            if (that.staffName2 === ' ') {
+                                that.staffName2 = '\u3000'
+                            }
                             that.staffName3 = that.staffAwardName[2];
                             that.staffCode3 = that.staffAwardCode[2];
-                        }
-                        count++;
-                        if (count == 100) {
                             //时间到，清空定时器
                             clearInterval(that.rollStyle2);
                             clearInterval(that.rollStyle2Count);
@@ -230,6 +211,7 @@ new Vue({
                             //刷新获奖数据
                             that.getPrizeList();
                         }
+                        count++;
                     }, 100);
                 } else if (res.data.code == 99) {
                     this.prizeId = '';
@@ -245,13 +227,13 @@ new Vue({
         },
         selectChange: function () {
             if (this.prizeId) {
-                const parma={
-                    prizeId:this.prizeId
+                const parma = {
+                    prizeId: this.prizeId
                 }
                 axios.post('lottery/getPrize', parma, null).then(res => {
-                    if (res.data.success){
-                        this.prizeName=res.data.data.prizeName;
-                        this.prizeLevel=res.data.data.prizeLevel;
+                    if (res.data.success) {
+                        this.prizeName = res.data.data.prizeName;
+                        this.prizeLevel = res.data.data.prizeLevel;
                     }
                 })
             }
@@ -298,10 +280,10 @@ new Vue({
                                 //清除定时器 设置初始倒计时间
                                 clearInterval(that.countDownSetIntervalNub);
                                 that.sec = '30';
-                                let staffName=document.getElementsByClassName('is-active')[0].outerText;
-                                that.awardData.staffName=staffName
-                                const index=staffName.indexOf('\n');
-                                staffName=staffName.substr(index)
+                                let staffName = document.getElementsByClassName('is-active')[0].outerText;
+                                that.awardData.staffName = staffName
+                                const index = staffName.indexOf('\n');
+                                staffName = staffName.substr(index)
                                 const text = that.prizeReadStart + " " + staffName + " " + that.prizeReadEnd + " " + that.prizeLevel + " " + that.prizeName;
                                 that.prizeRead(text);
                                 that.setLottery();
@@ -326,8 +308,8 @@ new Vue({
                 that.sec = '30';
                 that.isLottery = "开始抽奖";
                 that.autoplay = false;
-                let staffName=document.getElementsByClassName('is-active')[0].outerText;
-                that.awardData.staffName=staffName
+                let staffName = document.getElementsByClassName('is-active')[0].outerText;
+                that.awardData.staffName = staffName
                 const index = staffName.indexOf('\n');
                 staffName = staffName.substr(index)
                 const text = that.prizeReadStart + " " + staffName + " " + that.prizeReadEnd + " " + that.prizeLevel + " " + that.prizeName;
@@ -345,40 +327,40 @@ new Vue({
 
         //右上角的隐形button切换新老版本抽奖事件
         mergeDialog() {
-            if (this.mergeVisible){
-                this.mergeVisible=false
-            }else {
-                this.mergeVisible=true
+            if (this.mergeVisible) {
+                this.mergeVisible = false
+            } else {
+                this.mergeVisible = true
             }
         },
-        typeChange(){
+        typeChange() {
             if (this.isOld) {
                 this.isOld = false;
-                this.rollType='单字跳动模式';
+                this.rollType = '单字跳动模式';
                 this.sec = '15';
 
             } else {
                 this.isOld = true;
-                this.rollType='转盘模式';
+                this.rollType = '转盘模式';
                 this.sec = '30';
             }
         },
-        bgm(){
-          if (this.isBgmOn){
-              this.isBgmOn=false;
-              this.bgmText="关闭";
-          }  else {
-              this.isBgmOn=true;
-              this.bgmText="开启";
-          }
+        bgm() {
+            if (this.isBgmOn) {
+                this.isBgmOn = false;
+                this.bgmText = "关闭";
+            } else {
+                this.isBgmOn = true;
+                this.bgmText = "开启";
+            }
         },
-        award(){
-            if (this.isAwardOn){
-                this.isAwardOn=false;
-                this.awardText="关闭";
-            }  else {
-                this.isAwardOn=true;
-                this.awardText="开启";
+        award() {
+            if (this.isAwardOn) {
+                this.isAwardOn = false;
+                this.awardText = "关闭";
+            } else {
+                this.isAwardOn = true;
+                this.awardText = "开启";
             }
         },
         //抽奖完成写表调用
@@ -463,8 +445,8 @@ new Vue({
 
         //机器朗读（声音有点像
         prizeRead: function (text) {
-            if (this.isAwardOn){
-            new Audio("http://tts.baidu.com/text2audio?lan=zh&ie=UTF-8&text=" + encodeURI(text)).play();
+            if (this.isAwardOn) {
+                new Audio("http://tts.baidu.com/text2audio?lan=zh&ie=UTF-8&text=" + encodeURI(text)).play();
             }
         },
 
