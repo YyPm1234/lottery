@@ -56,7 +56,8 @@
         <div class="prize">
             <el-table
                     :data="prizeList"
-                    :row-class-name="tableRowClassName">
+                    :row-class-name="tableRowClassName"
+                    border>
                 <el-table-column
                         min-width="15%"
                         prop="prizeLevel"
@@ -93,6 +94,7 @@
                           :data="prizeList"
                           :row-class-name="tableRowClassName"
                           height="90%"
+                          border
                 >
                     <el-table-column
                             min-width="10%"

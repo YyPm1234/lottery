@@ -396,6 +396,7 @@ public class LotteryServiceImpl implements LotteryService {
 		StaffDic staffDic = new StaffDic();
 		staffDic.setLotteryId(lotteryReq.getLotteryId());
 		List<StaffDic> staffDicList = staffDicMapper.select(staffDic);
+		Collections.shuffle(staffDicList);
 		List<String> staffNameList1 = new ArrayList<>();
 		List<String> staffNameList2 = new ArrayList<>();
 		List<String> staffNameList3 = new ArrayList<>();
@@ -412,12 +413,12 @@ public class LotteryServiceImpl implements LotteryService {
 			staffNameList3.add(dic.getStaffName3());
 		}
 		//打乱顺序
-		Collections.shuffle(staffCodeList1);
-		Collections.shuffle(staffCodeList2);
-		Collections.shuffle(staffCodeList3);
-		Collections.shuffle(staffNameList1);
-		Collections.shuffle(staffNameList2);
-		Collections.shuffle(staffNameList3);
+//		Collections.shuffle(staffCodeList1);
+//		Collections.shuffle(staffCodeList2);
+//		Collections.shuffle(staffCodeList3);
+//		Collections.shuffle(staffNameList1);
+//		Collections.shuffle(staffNameList2);
+//		Collections.shuffle(staffNameList3);
 		//丢进实体类准备返回
 		StaffDicVO staffDicVO = new StaffDicVO();
 		staffDicVO.setStaffCodeList1(staffCodeList1);

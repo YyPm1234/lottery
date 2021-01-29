@@ -68,7 +68,7 @@ new Vue({
         if (this.isOld) {
             this.sec = 30;
         } else {
-            this.sec = 10;
+            this.sec = 20;
         }
     },
 
@@ -99,8 +99,8 @@ new Vue({
                     return ;
                 }
                 this.allowClick=false;
-                //新版10秒
-                this.sec = 10;
+                //新版20秒
+                this.sec = 20;
                 if (this.isRolling == false) {
                     this.lotteryNew();
                 } else {
@@ -190,7 +190,7 @@ new Vue({
                         if (that.sizeCount == 0) {
                             that.sizeCount = that.size;
                         }
-                        if (count > 99) {
+                        if (count > 199) {
                             that.staffName1 = that.staffAwardName[0];
                             that.staffCode1 = that.staffAwardCode[0];
                             that.staffName2 = that.staffAwardName[1];
@@ -343,7 +343,7 @@ new Vue({
             if (this.isOld) {
                 this.isOld = false;
                 this.rollType = '单字跳动模式';
-                this.sec = '15';
+                this.sec = '20';
 
             } else {
                 this.isOld = true;
